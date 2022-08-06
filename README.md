@@ -22,13 +22,13 @@ The files wxDataBase.py and cityInput.txt are an expanded version that incorpora
     sudo mysql_secure_installation
 
 3) Follow the installation prompts and access the MySQL server with:
-    sudo mysql -u root -p
+    `sudo mysql -u root -p`
 
 4) Next, create a database for storing the weather data for different cities:
-    CREATE DATABASE weatherdb; 
+    `CREATE DATABASE weatherdb;`
 
 5) Finally, clone the project:
-    git clone https://github.com/WilliamZhang20/Weather-Scraper.git
+    `git clone https://github.com/WilliamZhang20/Weather-Scraper.git`
 
 ## Usage    
 
