@@ -19,13 +19,10 @@ def pushData(city, date, low, high, humidity, cond):
     insertOper = "INSERT INTO {}(Date, DailyLow, DailyHigh, Humidity, `Condition`) VALUES(%s, %s, %s, %s, %s);".format(city.replace(' ', ''))
     data = (date, low, high, humidity, cond)
     try:
+        cursor.execute("CREATE TABLE IF NOT EXISTS {} (Date VARCHAR(255), DailyLow VARCHAR(255), DailyHigh VARCHAR(255), Humidity VARCHAR(255), `Condition` VARCHAR(255));".format(city.replace(' ', '')))
         cursor.execute(insertOper, data)
     except MySQLdb.Error as e:
-        try:
-            cursor.execute("CREATE TABLE {} (Date VARCHAR(255), DailyLow VARCHAR(255), DailyHigh VARCHAR(255), Humidity VARCHAR(255), `Condition` VARCHAR(255));".format(city.replace(' ', '')))
-            cursor.execute(insertOper, data)
-        except MySQLdb.Error as e:
-            return
+        return
     conn.commit()
     print("Successfull data commit for ", city, " weather")
 
@@ -63,7 +60,7 @@ def checkIfHasWords(str):
             return True
     return False
 
-InputFile = open("/home/pi/project2022/webScraping/cityInput.txt", 'r') # read only
+InputFile = open("/home/pi/project2022/webScraping/cityInput.txt", 'r') # read only, be sure to change for your own directory
 CityList = InputFile.readlines()
 for city in CityList:
     if checkIfHasWords(city)==False:
