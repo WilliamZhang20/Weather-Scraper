@@ -43,34 +43,6 @@ The files wxDataBase.py and cityInput.txt are an expanded version that incorpora
 ```    
     git clone https://github.com/WilliamZhang20/Weather-Scraper.git
 ```
- 
-2) If you want to push the weather data to a database, install libraries for MySQL. Since I ran everything on the Raspberry Pi Linux terminal, I used the [MariaDB server](https://en.wikipedia.org/wiki/MariaDB).  
-
-```
-    sudo apt update
-    sudo apt upgrade
-    sudo apt install mariadb-server
-    sudo pip install mysql-connector-python
-    sudo mysql_secure_installation
-```
-
-3) Follow the installation prompts and access the MySQL server with:
-
-```    
-    sudo mysql -u root -p
-```
-
-4) Next, create a database for storing the weather data for different cities:
-
-```
-    CREATE DATABASE weatherdb;
-```
-
-5) Finally, clone the project:
-
-```   
-    git clone https://github.com/WilliamZhang20/Weather-Scraper.git
-```
 
 ## Usage    
 
