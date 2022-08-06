@@ -1,2 +1,20 @@
-Atlanta
+Ottawa
+Montreal
+Toronto
+Waterloo
+Windsor
 Hamilton
+Calgary
+Vancouver
+Atlanta
+Austin
+Boston
+NYC
+Chicago
+San Jose
+San Diego
+Dallas
+Houston
+San Antonio
+Austin
+Orlando

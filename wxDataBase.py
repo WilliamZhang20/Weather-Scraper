@@ -38,12 +38,16 @@ def CollectCityWx(name):
 
     div1 = soup.find("div", {"class": "vk_bk wob-unit"})
     units = div1.find("span", {"aria-label": "°Celsius"}).text
-    div2 = soup.find("div", {"class": "wob_dcp"})
-    condition = div2.find("span", {"id": "wob_dc"}).text
+
+    div2 = soup.find("div", {"class": "DxhUm"})
+    condIcon = div2.find("img", {"class": "uW5pk"})
+    condition = condIcon['alt']
+
     div3 = soup.find("div", {"class": "gNCp2e"})
     high = div3.find("span", {"class": "wob_t"}).text
     div4 = soup.find("div", {"class": "QrNVmd ZXCv8e"})
     low = div4.find("span", {"class": "wob_t"}).text
+
     div5 = soup.find("div", {"class": "wtsRwe"})
     humid = div5.find("span", {"id": "wob_hm"}).text
 
