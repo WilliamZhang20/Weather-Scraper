@@ -5,8 +5,8 @@ The project is written in python, using the Beautiful Soup package and Requests 
 
 ## Contents
 
-The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the temperature and weather condition.
-The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the .txt file, with 1 city per line. Then, it scrapes weather data for each city (the daily minimum, daily maximum, humidity, and condition). Next, the data is pushed to a table in the database. If a table for that city does not exist, a new one is created and the data is pushed.  
+The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the current temperature and weather condition.
+The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the .txt file, with 1 city per line. Then, it scrapes weather data for each city (the daily minimum, daily maximum, humidity, and condition). Next, the data is pushed to the database, with each city getting its own table. If a table for that city does not exist, a new one is created and the data is pushed. Or, if there already is data in the table for today's date, then nothing will be done with the table. 
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ The files wxDataBase.py and cityInput.txt are an expanded version that incorpora
     sudo mysql_secure_installation
 ```
 
-3) Follow the installation prompts and access the MySQL server with:
+3) After you have answered the installation prompts, access the MySQL server with:
 
 ```   
     sudo mysql -u root -p
@@ -46,6 +46,8 @@ The files wxDataBase.py and cityInput.txt are an expanded version that incorpora
 
 ## Usage    
 
+Prior to running wxDataBase.py, be sure to change the password to your own MySQL password, and the input .txt file directory to the one in your computer.
+
 One can schedule the program to run at a certain time period. 
-By typing `crontab -e` into the terminal and `0 12 * * * file directory in your machine` into the crontab file that opens, the code will be executed every day at 12 pm, provided that the machine is on. 
+By typing `crontab -e` into the terminal and `0 12 * * * file directory in your machine` into the crontab file that opens, the code will be executed every day at 12 pm, provided that the machine is on. The crontab time is based on the 24 hour clock. 
 

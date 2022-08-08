@@ -6,15 +6,20 @@ Windsor
 Hamilton
 Calgary
 Vancouver
-Atlanta
-Austin
+Victoria
 Boston
 NYC
+Philadelphia
+Pittsburgh
 Chicago
+Detroit
+Minneapolis
 San Jose
 San Diego
+Phoenix
 Dallas
 Houston
 San Antonio
 Austin
+Atlanta
 Orlando
