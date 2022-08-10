@@ -20,7 +20,7 @@ def pushData(city, date, low, high, humidity, cond):
     data = (date, low, high, humidity, cond)
     try:
         cursor.execute("CREATE TABLE IF NOT EXISTS {} (Date VARCHAR(255), DailyLow VARCHAR(255), DailyHigh VARCHAR(255), Humidity VARCHAR(255), `Condition` VARCHAR(255));".format(city.replace(' ', ''))) # If table exists, nothing happens.
-        cursor.execute("SELECT * FROM {};".format(city))
+        cursor.execute("SELECT * FROM {};".format(city.replace(' ', '')))
         res = cursor.fetchall()
         for row in res:  # if there is already a point for today's date, then nothing will be entered
             if row[0]==date:
