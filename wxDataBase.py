@@ -3,12 +3,19 @@
 import MySQLdb  # Integrated Python with MySQL (https://pynative.com/python-mysql-database-connection/)
 import requests
 from bs4 import BeautifulSoup
+import os
+from dotenv import load_dotenv # used to fetch environment variables
 from datetime import date # date important for each weather data point
 
+load_dotenv() # fetch username and password environment vars
+
+mysql_username = os.getenv('mysql_username')
+mysql_password = os.getenv('mysql_password')
+
 conn = MySQLdb.connect(
-    host = 'localhost', # automatically gets the local host
-    user = 'root',
-    password = 'baodan613', # the password you set for your MySQL
+    host = 'localhost',
+    user = mysql_username,
+    password = mysql_password,
     database = 'weatherdb'
 )
 
@@ -25,12 +32,15 @@ def pushData(city, date, low, high, humidity, cond):
         for row in res:  # if there is already a point for today's date, then nothing will be entered
             if row[0]==date:
                 conn.commit()
+                print('')
                 return
         cursor.execute(insertOper, data)
     except MySQLdb.Error as e:
+        print("")
         return # does nothing if it doesn't work
     conn.commit()
     print("Successfull data commit for ", city, " weather")
+    print("")
 
 def CollectCityWx(name):
     hdrs = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
@@ -61,7 +71,7 @@ def CollectCityWx(name):
     loc = sp[0]
     low = low + " " + units
     high = high + " " + units
-    print(loc, " weather on ", d, ":", low, high, humid, condition)
+    print(loc, "weather on", d, ":", low, high, humid, condition)
     pushData(loc, d, low, high, humid, condition)
 
 def checkIfHasWords(str): # If at least 1 character is a letter, it is accepted

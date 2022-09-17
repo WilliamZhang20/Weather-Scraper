@@ -4,9 +4,9 @@
 import requests
 from bs4 import BeautifulSoup # NOTE: use sudo python3 when running. The module is for python3.
 
-# In lin 10 below, I provided the user agent when making the HTTP request
-# The server needs more information in requests to obtain JavaScript code
-# To find user agent, simply Google search "my user agent"
+# In the line of code below, I provided the user agent when making the HTTP request
+# The server needs more information in requests to obtain JavaScript code that retrieves weather data
+# To find your user agent, simply Google search "my user agent"
 hdrs = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
 
 query = input("Which city's weather would you like? ")

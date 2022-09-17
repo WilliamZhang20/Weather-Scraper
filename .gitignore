@@ -1,0 +1,6 @@
+# .log and .txt except cityInput
+.env
+*.log
+*.txt
+!cityInput.txt
+

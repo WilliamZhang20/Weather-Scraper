@@ -11,9 +11,11 @@ Boston
 NYC
 Philadelphia
 Pittsburgh
+Columbus
 Chicago
 Detroit
 Minneapolis
+Seattle
 San Jose
 San Diego
 Phoenix
@@ -23,3 +25,5 @@ San Antonio
 Austin
 Atlanta
 Orlando
+Raleigh
+Washington DC
