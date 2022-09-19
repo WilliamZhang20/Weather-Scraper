@@ -44,9 +44,9 @@ def processHumid(humid):
 def adjust(number):
     return round(number, 1)
 
-def processCondition(cond, idx):
+def processCondition(cond):
     cond = cond.lower() # puts all to lowercase
-    res = -1 # 0 for sunny/rainy, 1 for rainy, 2 for snowy
+    res = -1 # index of condition array to increment (counts # of days)
     idxRain = cond.find("rain")
     idxSnow = cond.find("snow")
     idxStorm = cond.find("storm")
@@ -56,19 +56,17 @@ def processCondition(cond, idx):
     idxMost = cond.find("most")
     idxPart = cond.find("part")
     if idxSunny != -1 or (idxCloudy != -1 and idxPart != -1):
-        res = 0 # sunny or partly cloudy -> sunny
+        res = [0] # sunny or partly cloudy -> sunny
     elif idxCloudy != -1 or (idxMost != -1 and idxCloudy != -1):
-        res = 1 # cloudy or mostly cloudy -> cloudy
+        res = [1] # cloudy or mostly cloudy -> cloudy
     elif (idxRain != -1 or idxShowers !=-1 or idxStorm != -1) and idxSnow==-1:
-        res = 2 # rain or showers or storm and no snow -> rainy
+        res = [2] # rain or showers or storm and no snow -> rainy
     elif idxSnow != -1:
-        res = 3 # snowy
-    else: res = 0
-    # deciding to add to array element
-    if idx == res:
-        return 1
-    else:
-        return 0
+        res = [3] # snowy
+    elif idxRain != -1 and idxSnow != -1:
+        res = [2, 3] # rainy and snowy
+    else: res = [0]
+    return res
 
 def monthOrder(month):
     if month == "January":
@@ -134,18 +132,19 @@ for table in cursor:
         totalLow += processTemp(row[1])
         totalHigh += processTemp(row[2])
         totalHumid += processHumid(row[3])
-        for i in range(len(wxConditions)):
-            wxConditions[i] += processCondition(row[4], i)
+        conditionIdxs = processCondition(row[4])
+        for num in conditionIdxs:
+            wxConditions[num] += 1
     if totalRows < 7:
         # too few dates available for the selected query
         continue
     avgLow = adjust(totalLow / totalRows)
     avgHigh = adjust(totalHigh / totalRows)
     avgHumid = adjust(totalHumid / totalRows)
-    sunny = adjust((wxConditions[0] / totalRows) * 30)
-    cloudy = adjust((wxConditions[1] / totalRows) * 30)
-    rainy = adjust((wxConditions[2] / totalRows) * 30)
-    snowy = adjust((wxConditions[3] / totalRows) * 30)
+    sunny = adjust((wxConditions[0] / totalRows) * 100)
+    cloudy = adjust((wxConditions[1] / totalRows) * 100)
+    rainy = adjust((wxConditions[2] / totalRows) * 100)
+    snowy = adjust((wxConditions[3] / totalRows) * 100)
     # checking for max/min low, high, humid
     if avgHigh > maxHigh[1]:
         maxHigh[0] = city
@@ -181,17 +180,23 @@ for table in cursor:
     print(avgLow, "°C ", avgHigh, "°C ", avgHumid, "%")
     print("Sunny days:", wxConditions[0], "Cloudy days:", wxConditions[1], "Rainy days:", wxConditions[2], "Snowy days: ", wxConditions[3])
 
-# Printing min and max low, high, humid and cities with most sun, cloud, rain, or snow
-print("City with max high:", maxHigh[0], "at", maxHigh[1], "°C")
-print("City with min high:", minHigh[0], "at", minHigh[1], "°C")
-print("City with max low:", maxLow[0], "at", maxLow[1], "°C")
-print("City with min low:", minLow[0], "at", minLow[1], "°C")
-print("Most humid city:", maxHumid[0], "at", maxHumid[1], "%")
-print("Least humid city:", minHumid[0], "at", minHumid[1], "%")
-print("Sunniest city:", maxSunny[0], "at avg.", maxSunny[1],"sunny days per month")
-print("Cloudiest city:", maxCloudy[0], "at avg.", maxCloudy[1],"cloudy days per month")
-print("Rainiest city:", maxRainy[0], "at avg.", maxRainy[1],"rainy days per month")
-if maxSnowy[1] != 0:
-    print("Snowiest city:", maxSnowy[0], "at avg.", maxSnowy[1],"snowy days per month")
-else:
-    print("No cities in data had any snowy days for now")
+def printMaxAndMins(maxHigh, minHigh, maxLow, minLow, maxHumid, minHumid, maxSunny, maxCloudy, maxRainy, maxSnowy):
+    # Printing min and max low, high, humid and cities with most sun, cloud, rain, or snow
+    if(maxHigh[0]==" "):
+        print("No cities within the database had sufficient data within your timeframe")
+        return
+    print("City with max avg high:", maxHigh[0], "at", maxHigh[1], "°C")
+    print("City with min avg high:", minHigh[0], "at", minHigh[1], "°C")
+    print("City with max avg low:", maxLow[0], "at", maxLow[1], "°C")
+    print("City with min avg low:", minLow[0], "at", minLow[1], "°C")
+    print("Most humid city:", maxHumid[0], "at avg", maxHumid[1], "%")
+    print("Least humid city:", minHumid[0], "at avg", minHumid[1], "%")
+    print("Sunniest city:", maxSunny[0], "at", maxSunny[1], "% of time")
+    print("Cloudiest city:", maxCloudy[0], "at", maxCloudy[1],"% of time")
+    print("Rainiest city:", maxRainy[0], "at", maxRainy[1],"% of time")
+    if maxSnowy[1] != 0:
+        print("Snowiest city:", maxSnowy[0], "at", maxSnowy[1],"% of time")
+    else:
+        print("No cities in data had any snowy days in the time period queried")
+
+printMaxAndMins(maxHigh, minHigh, maxLow, minLow, maxHumid, minHumid, maxSunny, maxCloudy, maxRainy, maxSnowy)

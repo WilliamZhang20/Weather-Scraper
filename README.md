@@ -6,9 +6,9 @@ It also includes features that allow for the entry of data into a MySQL database
 
 ## Contents
 
-The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the current temperature and weather condition.
-The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the .txt file, with 1 city per line. Then, it scrapes weather data for each city (the daily minimum, daily maximum, humidity, and condition). Next, the data is pushed to the database, with each city getting its own table. If a table for that city does not exist, a new one is created and the data is pushed. Or, if there already is data in the table for today's date, then nothing will be done with the table. 
-The file wxAnalyze.py is used to analyze the data. The user can query a time period and the program will display averages for each city and the cities with maximums and minimums.
+- The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the current temperature and weather condition.
+- The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the text file, with 1 city per line. Then, it scrapes weather data for each city (the daily minimum, daily maximum, humidity, and condition). Next, the data is pushed to the database, with each city getting its own table. If a table for that city does not exist, a new one is created and the data is pushed. Or, if there already is data in the table for today's date, then nothing will be done with the table. 
+- The file wxAnalyze.py is used to analyze the data. The user can query a time period and the program will display averages for each city and the cities with maximums and minimums.
 
 ## Getting Started
 
@@ -50,7 +50,7 @@ The file wxAnalyze.py is used to analyze the data. The user can query a time per
 
 6) Finally, you will need to create a file called `.env` defining the environment variables `mysql_username` and `mysql_password`.
 
-For example:
+   For example:
 
 ```
     mysql_username=your_username
