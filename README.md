@@ -1,14 +1,18 @@
 # Weather-Scraper
 
-This is a web scraper I made for extracting weather data from Google.
-The project is written in python, using the Beautiful Soup package and Requests library.
+This is a web scraper I made to collect weather data for various cities from Google. This can be used to analyze and compare weather data between cities.
+
+The project is written in Python, using the Beautiful Soup package and Requests library.
+
 It also includes features that allow for the entry of data into a MySQL database and the analysis/extraction of that data.
 
 ## Contents
 
-- The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the current temperature and weather condition.
-- The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the text file, with 1 city per line. Then, it scrapes weather data for each city (the daily minimum, daily maximum, humidity, and condition). Next, the data is pushed to the database, with each city getting its own table. If a table for that city does not exist, a new one is created and the data is pushed. Or, if there already is data in the table for today's date, then nothing will be done with the table. 
-- The file wxAnalyze.py is used to analyze the data. The user can query a time period and the program will display averages for each city and the cities with maximums and minimums.
+The file main.py is a basic web scraper that takes input for a city and temperature unit (degrees Celsius or Fahrenheit), then prints out the current temperature and weather condition.
+
+The files wxDataBase.py and cityInput.txt are an expanded version that incorporates the use of the MySQL database. The Python file reads city names from the text file, with 1 city per line. Then, it scrapes weather data for each city from the web (the daily minimum temperature, maximum temperature, humidity, and condition). Next, the data is pushed to the database, with each city getting its own table. If a table for that city does not exist, a new one is created and the data is pushed. Or, if there already is data in the table for today's date, then nothing will be done with the table. 
+
+The file wxAnalyze.py is used to analyze the data. The user can query a time period and the program will display averages for each city and the cities with maximums and minimums.
 
 ## Getting Started
 
@@ -50,7 +54,7 @@ It also includes features that allow for the entry of data into a MySQL database
 
 6) Finally, you will need to create a file called `.env` defining the environment variables `mysql_username` and `mysql_password`.
 
-   For example:
+    For example:
 
 ```
     mysql_username=your_username

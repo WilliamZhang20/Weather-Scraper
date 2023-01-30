@@ -11,6 +11,7 @@ load_dotenv() # fetch username and password environment vars
 
 mysql_username = os.getenv('mysql_username')
 mysql_password = os.getenv('mysql_password')
+city_input_directory = os.getenv('city_input_directory')
 
 conn = MySQLdb.connect(
     host = 'localhost',
@@ -80,7 +81,7 @@ def checkIfHasWords(str): # If at least 1 character is a letter, it is accepted
             return True
     return False
 
-InputFile = open("/home/pi/project2022/Weather-Scraper/cityInput.txt", 'r') # read only, be sure to change directory for your own directory
+InputFile = open(city_input_directory, 'r') # read only, be sure to change directory for your own directory
 CityList = InputFile.readlines()
 for city in CityList:
     if checkIfHasWords(city)==False:

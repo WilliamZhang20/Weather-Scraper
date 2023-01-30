@@ -46,7 +46,7 @@ def adjust(number):
 
 def processCondition(cond):
     cond = cond.lower() # puts all to lowercase
-    res = -1 # index of condition array to increment (counts # of days)
+    res = [] # index of condition array to increment (counts # of days)
     idxRain = cond.find("rain")
     idxSnow = cond.find("snow")
     idxStorm = cond.find("storm")
@@ -176,13 +176,13 @@ for table in cursor:
     if snowy > maxSnowy[1]:
         maxSnowy[0] = city
         maxSnowy[1] = snowy
-    print("For {}: ".format(city), end='')
-    print(avgLow, "°C ", avgHigh, "°C ", avgHumid, "%")
-    print("Sunny days:", wxConditions[0], "Cloudy days:", wxConditions[1], "Rainy days:", wxConditions[2], "Snowy days: ", wxConditions[3])
+    print("{}\'s averages: ".format(city), end='')
+    print("Low: ", avgLow, "°C ", "High: ", avgHigh, "°C ", "Humidity: ", avgHumid, "%")
+    print("Sunny days:", wxConditions[0], "Cloudy days:", wxConditions[1], "Rainy days:", wxConditions[2], "Snowy days: ", wxConditions[3], "\n")
 
 def printMaxAndMins(maxHigh, minHigh, maxLow, minLow, maxHumid, minHumid, maxSunny, maxCloudy, maxRainy, maxSnowy):
     # Printing min and max low, high, humid and cities with most sun, cloud, rain, or snow
-    if(maxHigh[0]==" "):
+    if(maxHigh[1]==-100):
         print("No cities within the database had sufficient data within your timeframe")
         return
     print("City with max avg high:", maxHigh[0], "at", maxHigh[1], "°C")
