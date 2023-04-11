@@ -51,14 +51,15 @@ def CollectCityWx(name):
 
     today = date.today()
     d = today.strftime("%B %d, %Y")
-    loc = soup.find("div", {"id": "wob_loc"}).text
+    loc = soup.find("span", {"class": "BBwThe"}).text
 
     div1 = soup.find("div", {"class": "vk_bk wob-unit"})
     units = div1.find("span", {"aria-label": "°Celsius"}).text
 
     div2 = soup.find("div", {"class": "DxhUm"})
-    condIcon = div2.find("img", {"class": "uW5pk"}) # Condition is taken from image icon
-    condition = condIcon['alt'] # This icon is overall weather for the day, and is alt attribute
+    condIcon = div2.find("g-img", {"class": "uW5pk"}) # Condition is taken from image icon
+    image = condIcon.find("img")
+    condition = image.get('alt') # This icon is overall weather for the day, and is alt attribute
 
     div3 = soup.find("div", {"class": "gNCp2e"})
     high = div3.find("span", {"class": "wob_t"}).text
