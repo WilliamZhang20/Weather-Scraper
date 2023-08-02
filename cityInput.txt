@@ -17,6 +17,7 @@ Detroit
 Minneapolis
 Seattle
 San Jose
+Los Angeles
 San Diego
 Phoenix
 Dallas

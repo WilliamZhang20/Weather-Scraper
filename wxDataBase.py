@@ -33,15 +33,15 @@ def pushData(city, date, low, high, humidity, cond):
         for row in res:  # if there is already a point for today's date, then nothing will be entered
             if row[0]==date:
                 conn.commit()
-                print('')
+                print('There is already data for ', city, '\'s weather today.\n', sep = '')
                 return
         cursor.execute(insertOper, data)
     except MySQLdb.Error as e:
-        print("")
+        print("") # newline
         return # does nothing if it doesn't work
     conn.commit()
     print("Successfull data commit for ", city, " weather")
-    print("")
+    print("") # newline
 
 def CollectCityWx(name):
     hdrs = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
@@ -51,7 +51,12 @@ def CollectCityWx(name):
 
     today = date.today()
     d = today.strftime("%B %d, %Y")
-    loc = soup.find("span", {"class": "BBwThe"}).text
+    loc1 = soup.find("span", {"class": "BBwThe"}).text
+    loc2 = soup.find("div", {"id": "wob_loc"}).text
+    if loc2 == 'Weather':
+        loc = loc1
+    else:
+        loc = loc2
 
     div1 = soup.find("div", {"class": "vk_bk wob-unit"})
     units = div1.find("span", {"aria-label": "°Celsius"}).text
